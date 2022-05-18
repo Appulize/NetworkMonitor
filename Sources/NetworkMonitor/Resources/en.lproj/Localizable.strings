@@ -1,0 +1,7 @@
+"NETWORK_INITIALIZING" = "Netowkr is initializing.";
+"NETWORK_REACHABLE" = "Network is available.";
+"NETWORK_CONSTRAINED" = "Low-data mode is enabled.";
+"NETWORK_EXPENSIVE" = "Network is considered expensive.";
+"NETWORK_UNREACHABLE" = "Network is not available, please check your connection.";
+"NETWORK_SERVER_REACHABLE" = "Server is reachable.";
+"NETWORK_SERVER_UNREACHABLE" = "Server is not reachable.";
