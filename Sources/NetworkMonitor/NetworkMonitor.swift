@@ -24,10 +24,10 @@ import SwiftUI
 import Network
 
 @available(macOS 10.14, iOS 13.0, watchOS 5.0, tvOS 12.0, *)
-public class Network: ObservableObject {
-    public typealias MonitorStatus = (Network) -> Void
+public class NetworkMonitor: ObservableObject {
+    public typealias MonitorStatus = (NetworkMonitor) -> Void
     
-    public static var shared = Network()
+    public static var shared = NetworkMonitor()
     
     /// Whether low data mode is enabled
     @Published public private(set) var isConstrained = false
@@ -131,7 +131,7 @@ public class Network: ObservableObject {
 }
 
 extension EnvironmentValues {
-    public var network: Network {
-        Network.shared
+    public var network: NetworkMonitor {
+        NetworkMonitor.shared
     }
 }
