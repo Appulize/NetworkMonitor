@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NetworkStatusDescriptionView: View {
+public struct NetworkStatusDescriptionView: View {
     @ObservedObject var networkMonitor = NetworkMonitor
         .shared
     
