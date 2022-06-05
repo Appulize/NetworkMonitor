@@ -11,7 +11,7 @@ public struct NetworkStatusDescriptionView: View {
     @ObservedObject var networkMonitor = NetworkMonitor
         .shared
     
-    var body: some View {
+    public var body: some View {
         Text(networkMonitor.description)
     }
 }
