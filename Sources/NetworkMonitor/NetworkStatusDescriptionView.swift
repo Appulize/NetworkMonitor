@@ -11,6 +11,8 @@ public struct NetworkStatusDescriptionView: View {
     @ObservedObject var networkMonitor = NetworkMonitor
         .shared
     
+    public init() {} // Swift requires this -.-
+    
     public var body: some View {
         Text(networkMonitor.description)
     }
