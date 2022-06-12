@@ -39,7 +39,14 @@ public class NetworkMonitor: ObservableObject {
     @Published public private(set) var isReachable = false
     @Published public private(set) var description = "NETWORK_INITIALIZING".localized
     
-    var hostname: String
+    /// The hostname that `Reachability will use for its check.
+    ///
+    /// Changing this value will reinitialize `Reachability`.
+    public var hostname: String {
+        didSet {
+            hostnameDidChange()
+        }
+    }
     var reachability: Reachability?
     
     public var whenChanged: MonitorStatus?
@@ -52,7 +59,8 @@ public class NetworkMonitor: ObservableObject {
     
     public init(hostname: String, whenChanged: MonitorStatus? = nil) {
         self.hostname = hostname
-        self.reachability = try? Reachability(hostname: hostname)
+        hostnameDidChange() // didSet will not get called from init
+        
         self.whenChanged = whenChanged
         
         monitor.pathUpdateHandler = { path in
@@ -60,6 +68,18 @@ public class NetworkMonitor: ObservableObject {
         }
         
         monitor.start(queue: DispatchQueue.main)
+        
+        updateDescription()
+    }
+    
+    deinit {
+        reachability?.stopNotifier()
+    }
+    
+    private func hostnameDidChange() {
+        reachability?.stopNotifier()
+        
+        self.reachability = try? Reachability(hostname: hostname)
         
         reachability?.whenReachable = { reachability in
             self.update(reachability: reachability)
@@ -70,12 +90,6 @@ public class NetworkMonitor: ObservableObject {
         }
         
         try? reachability?.startNotifier()
-        
-        updateDescription()
-    }
-    
-    deinit {
-        reachability?.stopNotifier()
     }
     
     private func update(reachability: Reachability) {
